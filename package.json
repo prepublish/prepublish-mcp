@@ -1,0 +1,55 @@
+{
+  "name": "prepublish-mcp",
+  "version": "1.0.1",
+  "description": "stdio bridge to the hosted PrePublish MCP server: audit a YouTube script before recording from any MCP client",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "youtube",
+    "script",
+    "retention",
+    "prepublish",
+    "claude",
+    "llm-tools"
+  ],
+  "homepage": "https://prepublish.ai/mcp-server",
+  "bugs": {
+    "url": "https://github.com/prepublish/prepublish-mcp/issues"
+  },
+  "license": "MIT",
+  "author": "PrePublish (https://prepublish.ai)",
+  "type": "module",
+  "bin": {
+    "prepublish-mcp": "dist/bridge.js"
+  },
+  "files": [
+    "dist/bridge.js",
+    "dist/bridge.d.ts",
+    "server.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/bridge.js",
+    "test": "tsx --test test/*.test.ts",
+    "test:conformance": "tsx --test test/conformance.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prepublish/prepublish-mcp"
+  }
+}
