@@ -36,9 +36,27 @@ await upstream.connect(
 
 const { tools } = await upstream.listTools()
 
+// The bridge is a pass-through, so it must present the upstream server's own
+// identity rather than a stub of its own. Without this, a client installed
+// through the bridge sees a server with no title, no description and no
+// website, and a catalogue that scans it scores the metadata as missing.
+// getServerVersion() returns the upstream Implementation object, which carries
+// title, description, websiteUrl and icons on revision 2025-11-25.
+const upstreamInfo = upstream.getServerVersion()
+
 const local = new Server(
-    { name: 'prepublish', version: '1.0.0' },
-    { capabilities: { tools: { listChanged: false } } },
+    {
+        name: upstreamInfo?.name ?? 'prepublish',
+        version: upstreamInfo?.version ?? '1.0.0',
+        ...(upstreamInfo?.title ? { title: upstreamInfo.title } : {}),
+        ...(upstreamInfo?.description ? { description: upstreamInfo.description } : {}),
+        ...(upstreamInfo?.websiteUrl ? { websiteUrl: upstreamInfo.websiteUrl } : {}),
+        ...(upstreamInfo?.icons ? { icons: upstreamInfo.icons } : {}),
+    },
+    {
+        capabilities: { tools: { listChanged: false } },
+        ...(upstream.getInstructions() ? { instructions: upstream.getInstructions() } : {}),
+    },
 )
 
 local.setRequestHandler(ListToolsRequestSchema, async () => ({ tools }))
