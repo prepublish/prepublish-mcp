@@ -161,6 +161,8 @@ Published to the official MCP registry as `ai.prepublish/script-audit`, a
 remote-only entry under the DNS-verified `ai.prepublish` namespace. See
 [`server.json`](./server.json).
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/prepublish-prepublish-mcp-bcz7se)](https://m8ven.ai/mcp/prepublish-prepublish-mcp-bcz7se)
+
 ## Links
 
 - Documentation: <https://prepublish.ai/mcp-server>
